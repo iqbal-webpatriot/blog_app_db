@@ -1,6 +1,6 @@
 const router=require("express").Router();
 const View=require("../../model/BlogView/blogView.model");
-const Blog=require("../../model/blog.model");
+const Blog=require("../../model/Blog/blog.model");
 const ip= require("ip");
 //! get all viewed blogs result
 router.get("",async(req,res)=>{
