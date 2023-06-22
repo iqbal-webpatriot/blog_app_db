@@ -16,7 +16,8 @@ router.post("",async(req,res)=>{
     try {
         //! current ip address
         const currentIp= ip.address();
-        console.log("cuurent ip address ",currentIp);
+        //!check if req body has blogId
+        if(!req.body.blogId || req.body.blogId=='') return res.status(400).send({message:"Blog id is required"}    );
         //!check if ip address and blog id already exist
         const alreadyViewed=await View.findOne({ipAddress:currentIp,blogId:req.body.blogId}).lean().exec();
         //!if already exist then return message
