@@ -18,7 +18,8 @@ app.post("/api/register",register)
 app.post("/api/login",login)
 //?user routes
 app.use("/api/users",userController)
-app.use("/blogs",blogController)
+//?blog routes
+app.use("api/blogs",blogController)
 //?like routes
 app.use('/api/likes',likeController)
 //!listen to the server
