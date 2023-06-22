@@ -1,6 +1,6 @@
 //!imports 
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcryptjs');
 //!user schema 
 const userSchema = new mongoose.Schema({
     fullName:{type:String,required:true},

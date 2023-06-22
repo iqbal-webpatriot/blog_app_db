@@ -1,10 +1,12 @@
 require("dotenv").config();
 const User= require("../../model/User/user.model");
 const jwt= require("jsonwebtoken");
+const deleteKeys = require("../../utils/deleteKeys");
 // function to create new token for the new user
 const newToken=(user)=>{
     return jwt.sign({user},`${process.env.JWT_SECRET_KEY}`)
 }
+//!register controller
 const register= async (req,res)=>{
     try {
         // we wil try to find user with the email id 
@@ -17,16 +19,16 @@ const register= async (req,res)=>{
 
         // if the use is not found then we will create new user with email and password
         user= await User.create(req.body);
-
+    
         // then we will crete a token to that user
         const token= newToken(user); // calling the token function to generate token
         // then return the token to the user
-        return res.status(201).send({user,token})
+        return res.status(201).send({message:"Registration Successfull ",token})
     } catch (error) {
         return res.status(500).send(error.message)
     }
 }
-
+//!login controller
 const login= async(req,res)=>{
     try {
         //  first we will find the user by email id
@@ -43,12 +45,13 @@ const login= async(req,res)=>{
         }
         // then we will crete a token to that user
         const token= newToken(user); // calling the token function to generate token
-        // then return the token to the user
-        return res.status(201).send({user,token})
+       // delete password key from the user model response 
+         const updatedUser= deleteKeys(user.toObject(),'password')
+        return res.status(201).send({user:updatedUser,token})
 
     } catch (error) {
         return res.send(error.message)
     }
 }
-
+//!exporting the controllers
 module.exports={register,login}
