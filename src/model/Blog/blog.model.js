@@ -15,8 +15,8 @@ const blogSchema = new mongoose.Schema({
     content: {type: String, required: true},
     author: {type:mongoose.Schema.Types.ObjectId, ref: 'user', required: true},
     comments: {type: [mongoose.Schema.Types.ObjectId], ref: 'comment', required: false},
-    likecount: {type:mongoose.Schema.Types.ObjectId, ref:"like", required: true},
-    viewcount: {type: Number, required: true},
+    likecount: {type: Number, default: 0},
+    viewcount: {type: Number, default: 0},
     likestatus: {type: Boolean, required: true},
 }, {    
     versionKey: false,
