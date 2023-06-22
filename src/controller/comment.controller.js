@@ -23,14 +23,6 @@ router.post("", async (req, res) => {
 router.get("", async (req, res) => {
     try {
       const comments = await Comment.find()
-        .populate({
-          path: "post_id",
-          select: ["title", "body"],
-          populate: [
-            { path: "user_id", select: ["first_name", "last_name"] },
-            { path: "tag_ids", select: ["name"] },
-          ],
-        })
         .lean()
         .exec();
   
@@ -39,3 +31,7 @@ router.get("", async (req, res) => {
       return res.status(500).send(err.message);
     }
   });
+
+
+module.exports = router;
+  
