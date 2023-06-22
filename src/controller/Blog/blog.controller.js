@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const Blog = require("../model/blog.model");
+const Blog = require("../../model/Blog/blog.model");
 
 //  all blogs get route with pagintion 
 
 router.get("", async (req, res) => {
     const page = parseInt(req.query.page) || 1; // Extract the page number from the query parameters
-    const limit = 10; // Set the number of blogs to retrieve per page
-  
+    const limit =parseInt(req.query.limit) || 1; // Set the number of blogs to retrieve per page
     try {
       const count = await Blog.countDocuments(); // Get the total count of blogs
       const totalPages = Math.ceil(count / limit); // Calculate the total number of pages
@@ -15,8 +14,9 @@ router.get("", async (req, res) => {
       const skip = (page - 1) * limit; // Calculate the number of blogs to skip
   
       const blogs = await Blog.find()
-        // .populate({ path: "author", select: ["firstName", "lastName"] })
-        // .populate({ path: "tags", select: ["name"] })
+        .populate({ path: "author", select: ["fullName","email"] },
+        {path:"likecount",select:["isLiked","userId"]})
+        .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
         .lean()
@@ -83,7 +83,22 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
+// get single blog by id
 
+router.get("/:id", async (req, res) => {
+    try {
+        const blog = await Blog.findById(req.params.id).populate({ path: "author", select: ["fullName","email"] }).lean().exec();
+        if (!blog) {
+            return res.status(404).send({ message: "Blog not found" });
+        }
+        return res.status(200).send(blog);
+    } catch (error) {
+
+
+        return res.status(400).send({ message: error.message });
+    }
+
+});
 
 
 module.exports = router;

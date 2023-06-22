@@ -7,10 +7,10 @@ const port=process.env.PORT || 4568;
 //** Import controllers
 const {register,login}= require("./controller/Auth/auth.controller");
 const userController= require("./controller/User/user.controller");
-const blogController= require("./controller/blog.controller");
+const blogController=require("./controller/Blog/blog.controller")
 const likeController= require("./controller/Like/like.controller");
 const blogViewController=require("./controller/BlogView/blogView.controller");
-//!global middlewares
+//global middlewares
 app.use(cors());
 app.use(express.json())
 //** defining routes */

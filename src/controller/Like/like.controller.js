@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Like = require("../../model/Like/like.model");
-const Blog = require("../../model/blog.model");
+const Blog = require("../../model/Blog/blog.model");
 
 //! get all liked blogs result
 router.get("", async (req, res) => {
