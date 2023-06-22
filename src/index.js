@@ -4,19 +4,14 @@ const  cors= require("cors");
 const path=require('path')
 const app= express();
 const port=process.env.PORT || 4568;
-//** Import controllers 
-const {register,login}= require("./controller/Auth/auth.controller");
-const userController= require("./controller/User/user.controller");
+
 //!global middlewares 
 app.use(cors());
 app.use(express.json())
+app.use("/blogs",blogController)
 
-//** defining routes */
-//?auth routes
-app.post("/api/register",register)
-app.post("/api/login",login)
-//?user routes 
-app.use("/api/users",userController)
+
+
 //!listen to the server 
 app.listen( port  , async()=>{
     try {
