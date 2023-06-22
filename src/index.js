@@ -4,12 +4,17 @@ const  cors= require("cors");
 const path=require('path')
 const app= express();
 const port=process.env.PORT || 4568;
+const blogController=require("./controller/blog.controller");
+const commentController=require("./controller/comment.controller");
 
-//!global middlewares 
+//global middlewares 
 app.use(cors());
 app.use(express.json())
+app.use("/blogs",blogController)
 
-//!listen to the server 
+
+
+//listen to the server 
 app.listen( port  , async()=>{
     try {
           await connect()
