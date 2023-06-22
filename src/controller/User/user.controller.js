@@ -14,7 +14,7 @@ router.get("/",async(req,res)=>{
 //!get request to get single user
 router.get("/:id",async(req,res)=>{
     try {
-        const user= await User.findById(req.params.id).lean().exec();
+        const user= await User.findById(req.params.id).select(["_id","fullName","email","createdAt","updatedAt"]).lean().exec();
         return res.status(200).send(user)
     } catch (error) {
         return res.status(500).send({message:error.message})
