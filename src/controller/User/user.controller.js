@@ -5,7 +5,7 @@ const deleteKeys = require("../../utils/deleteKeys");
 //!get request to get all the users
 router.get("/",async(req,res)=>{
     try {
-        const users= await User.find().lean().exec();
+        const users= await User.find().select(["_id","fullName","email","createdAt","updatedAt"]).lean().exec();
         return res.status(200).send(users)
     } catch (error) {
         return res.status(500).send({message:error.message})

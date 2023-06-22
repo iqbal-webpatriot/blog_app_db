@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Like = require("../../model/Like/like.model");
 const Blog = require("../../model/Blog/blog.model");
-
+const authenticate = require("../../middlewares/Authentication/authenticate");
 //! get all liked blogs result
 router.get("", async (req, res) => {
   try {
@@ -12,7 +12,7 @@ router.get("", async (req, res) => {
   }
 });
 //!get all liked blogs by user id 
-router.get("/:id", async (req, res) => {
+router.get("/:id", authenticate,async (req, res) => {
     try {
         const like = await Like.find({ userId: req.params.id }).lean().exec();
         return res.status(200).send(like);
@@ -22,7 +22,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //! router to handler like and unlike req
-router.post("", async (req, res) => {
+router.post("",authenticate, async (req, res) => {
   const { userId, blogId } = req.body;
   try {
     const like = await Like.findOne({ userId, blogId }).lean().exec();

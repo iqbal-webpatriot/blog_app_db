@@ -14,6 +14,7 @@ const commentSchema = new mongoose.Schema(
       ref: "blog",
       required: true,
     },
+    userId:{type:mongoose.Schema.Types.ObjectId,ref:'user',required:true}
   },
   {
     versionKey: false, // removed __v

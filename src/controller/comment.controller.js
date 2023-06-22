@@ -9,6 +9,7 @@ router.post("", async (req, res) => {
         const comment = await Comment.create({
         content: req.body.content,
         post_id: req.body.post_id,
+        userId: req.body.userId,
         });
         return res.status(201).send(comment);
     } catch (error) {
