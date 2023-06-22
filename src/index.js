@@ -9,6 +9,7 @@ const {register,login}= require("./controller/Auth/auth.controller");
 const userController= require("./controller/User/user.controller");
 const blogController=require("./controller/Blog/blog.controller")
 const likeController= require("./controller/Like/like.controller");
+const commentController= require("./controller/comment.controller");
 //!global middlewares
 app.use(cors());
 app.use(express.json())
@@ -18,10 +19,15 @@ app.post("/api/register",register)
 app.post("/api/login",login)
 //?user routes
 app.use("/api/users",userController)
-app.use("/blogs",blogController)
+//?blog routes
+app.use("/api/blogs",blogController)
 //?like routes
 app.use('/api/likes',likeController)
-//!listen to the server
+//? comment routes 
+app.use('/api/comments',commentController)
+
+
+//?listen to the server
 app.listen( port  , async()=>{
     try {
           await connect()
