@@ -6,7 +6,7 @@ const Blog = require("../model/blog.model");
 
 router.get("", async (req, res) => {
     const page = parseInt(req.query.page) || 1; // Extract the page number from the query parameters
-    const limit = 2; // Set the number of blogs to retrieve per page
+    const limit = 10; // Set the number of blogs to retrieve per page
   
     try {
       const count = await Blog.countDocuments(); // Get the total count of blogs
