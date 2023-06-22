@@ -14,10 +14,10 @@ const blogSchema = new mongoose.Schema({
     title: {type: String, required: true},
     content: {type: String, required: true},
     author: {type:mongoose.Schema.Types.ObjectId, ref: 'user', required: true},
-    comments: {type: [mongoose.Schema.Types.ObjectId], ref: 'comment', required: false},
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'comment' }],
     likecount: {type: Number, default: 0},
-    viewcount: {type: Number, default: 0},
-    likestatus: {type: Boolean, required: true},
+    viewcount: {type: Number , default: 0 },
+    likestatus: {type: Boolean },
 }, {    
     versionKey: false,
     timestamps: true
