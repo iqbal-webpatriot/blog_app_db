@@ -14,7 +14,8 @@ router.get("", async (req, res) => {
       const skip = (page - 1) * limit; // Calculate the number of blogs to skip
   
       const blogs = await Blog.find()
-        .populate({ path: "author", select: ["fullName","email"] })
+        .populate({ path: "author", select: ["fullName","email"] },
+        {path:"likecount",select:["isLiked","userId"]})
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)

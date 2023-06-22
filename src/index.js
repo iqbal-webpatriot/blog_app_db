@@ -9,7 +9,7 @@ const {register,login}= require("./controller/Auth/auth.controller");
 const userController= require("./controller/User/user.controller");
 const blogController=require("./controller/Blog/blog.controller")
 const likeController= require("./controller/Like/like.controller");
-//!global middlewares
+//global middlewares
 app.use(cors());
 app.use(express.json())
 //** defining routes */
